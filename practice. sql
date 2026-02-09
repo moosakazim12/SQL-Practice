@@ -1,0 +1,14 @@
+
+# Question (SELF JOIN)
+# How can you output a list of all members who have recommended another member? Ensure that there are no duplicates in the list, and that results are ordered by (surname, firstname).
+
+SELECT DISTINCT
+       m.firstname,
+       m.surname
+FROM cd.members m
+INNER JOIN cd.members r
+  ON m.memid = r.recommendedby
+ORDER BY m.surname, m.firstname;
+
+
+print("Query executed successfully.")
