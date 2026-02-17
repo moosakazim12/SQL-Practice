@@ -132,3 +132,33 @@ FROM employees e
 INNER JOIN employees AS m
 ON e.name = m.name
 WHERE e.salary > m.salary;
+
+
+
+-- 5️⃣ Find Nth Highest Salary
+
+SELECT salary
+FROM (
+SELECT salary,
+DENSE_RANK() OVER (ORDER BY salary DESC) AS rank
+FROM employees
+) AS t
+WHERE rank = 3;
+
+
+
+-- 7️⃣ Find Highest Salary Per Department
+SELECT department_id, MAX(salary) AS highest_salary
+FROM employees
+GROUP BY department_id;
+
+
+8️⃣ Employees Above Department Average
+
+SELECT *
+FROM employees  AS e1
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees AS e2
+    WHERE e1.department_id = e2.department_id
+);
