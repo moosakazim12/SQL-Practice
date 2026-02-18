@@ -205,3 +205,16 @@ ORDER BY order_date;
 
 
 -- 15️⃣ 7-Day Moving Average
+
+SELECT order_date,
+AVG(amount) OVER (
+    ORDER BY order_date
+    ROWS BETWEEN 6 PRECEDING  AND CURRENT ROW) AS moving_avg
+    FROM orders
+
+
+    -- 16️⃣ Rank Employees by Salary
+
+    SELECT name,
+    RANK() OVER (ORDER BY salary DESC) AS salary_rank
+    FROM employees;
