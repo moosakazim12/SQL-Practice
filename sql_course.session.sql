@@ -233,3 +233,10 @@ FROM orders
 SELECT customer_id,order_date,amount,
 LAG(amount) OVER(PARTITION BY customer_id ORDER BY order_date) AS previous_amount
 FROM orders
+
+-- 20️⃣ Percentage Contribution
+
+SELECT customer_id,
+SUM(amount) * 100 / SUM(SUM(amount)) OVER() AS percentage_contribution
+FROM orders
+GROUP BY customer_id
