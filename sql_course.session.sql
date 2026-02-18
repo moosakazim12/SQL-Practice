@@ -218,3 +218,18 @@ AVG(amount) OVER (
     SELECT name,
     RANK() OVER (ORDER BY salary DESC) AS salary_rank
     FROM employees;
+
+    -- 18️⃣ First Purchase Per Customer
+    SELECT * 
+    FROM(
+SELECT *,
+ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY order_date) AS rank_number
+FROM orders
+    ) AS t
+    WHERE rank_number = 1;
+
+
+--  19️⃣ Find Previous Order Using LAG
+SELECT customer_id,order_date,amount,
+LAG(amount) OVER(PARTITION BY customer_id ORDER BY order_date) AS previous_amount
+FROM orders
