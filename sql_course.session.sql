@@ -153,7 +153,7 @@ FROM employees
 GROUP BY department_id;
 
 
-8️⃣ Employees Above Department Average
+-- 8️⃣ Employees Above Department Average
 
 SELECT *
 FROM employees  AS e1
@@ -162,3 +162,46 @@ WHERE salary > (
     FROM employees AS e2
     WHERE e1.department_id = e2.department_id
 );
+
+-- 9️⃣ Find Employees Without Manager
+
+SELECT *
+FROM employees
+WHERE manager_id IS NULL;
+
+
+-- 🔟 UNION vs UNION ALL
+
+SELECT name FROM employees
+UNION
+SELECT name FROM Customers;
+
+-- 11️⃣ Count Orders Per Customer
+
+SELECT COUNT(*) AS order_count, customer_id
+FROM Orders
+GROUP BY customer_id;
+
+-- 12️⃣ Customers With More Than 2 Orders
+SELECT customer_id
+FROM Orders
+GROUP BY customers_id
+HAVING COUNT(*) > 2;
+
+
+-- 13️⃣ Monthly Revenue
+SELECT DATE_TRUNC('month',order_date) AS MONTH,
+SUM(amount) AS revenue
+FROM orders
+GROUP BY month
+
+
+-- 14️⃣ Running Total of Revenue
+
+SELECT order_date,
+SUM(amount) OVER (ORDER BY order_date) AS running_total
+FROM orders
+ORDER BY order_date;
+
+
+-- 15️⃣ 7-Day Moving Average
