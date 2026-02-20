@@ -240,3 +240,29 @@ SELECT customer_id,
 SUM(amount) * 100 / SUM(SUM(amount)) OVER() AS percentage_contribution
 FROM orders
 GROUP BY customer_id
+
+
+
+-- 21️⃣ Monthly Active Users (MAU)
+
+SELECT DATE_TRUNC('month', login_date) AS month,
+COUNT(DISTINCT user_id)
+FROM logins
+GROUP BY month;
+
+
+-- 22️⃣ Daily Active Users (DAU)
+SELECT DATE_TRUNC('day',login_date) AS day,
+COUNT(DISSTINCT user_id)
+FROM logins
+GROUP BY day;
+
+
+-- 23️⃣ Retention Rate (30 Day)
+
+SELECT COUNT(DISTINCT l.user_id) * 100 /
+COUNT(DISTINCT c.customer_id) AS retention_rate
+FROM customers c
+LEFT JOIN logins AS 
+ON c.customer_id = l.user_id
+ANDl.login_date >= c.signup_date + INTERVAL "30 days";
