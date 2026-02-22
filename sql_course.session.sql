@@ -260,3 +260,9 @@ GROUP BY day;
 
 -- 23️⃣ Retention Rate (30 Day)
 
+SELECT COUNT(DISTINCT l.user_id) * 100 /
+COUNT(DISTINCT c.customer_id) AS retention_rate
+FROM customers c
+LEFT JOIN logins AS 
+ON c.customer_id = l.user_id
+ANDl.login_date >= c.signup_date + INTERVAL "30 days";
