@@ -92,20 +92,7 @@
 
                      -- Find the 2nd highest salary
 
-SELECT MAX(salary)
-FROM employees
-WHERE salary < (SELECT MAX(salary) FROM employees);
 
-SELECT salary
-FROM (
-
-SELECT salary,
-DENSE_RANK() OVER (ORDER BY salary DESC) AS rnk
-FROM
-employees
-
-) AS ranked_salaries
-WHERE rnk = 2;
 
     -- Find duplicate records
     SELECT email, COUNT(*)
@@ -266,3 +253,5 @@ FROM customers c
 LEFT JOIN logins AS 
 ON c.customer_id = l.user_id
 ANDl.login_date >= c.signup_date + INTERVAL "30 days";
+
+-- 24️⃣ Churn Rate
