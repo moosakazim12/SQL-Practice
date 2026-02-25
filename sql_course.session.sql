@@ -91,6 +91,20 @@
 
 
                      -- Find the 2nd highest salary
+SELECT MAX(salary)
+FROM employees
+WHERE salary < (SELECT MAX(salary) FROM employees);
+
+SELECT salary
+FROM (
+
+SELECT salary,
+DENSE_RANK() OVER (ORDER BY salary DESC) AS rnk
+FROM
+employees
+
+) AS ranked_salaries
+WHERE rnk = 2;
 
 
 
@@ -239,10 +253,7 @@ GROUP BY month;
 
 
 -- 22️⃣ Daily Active Users (DAU)
-SELECT DATE_TRUNC('day',login_date) AS day,
-COUNT(DISSTINCT user_id)
-FROM logins
-GROUP BY day;
+
 
 
 -- 23️⃣ Retention Rate (30 Day)
