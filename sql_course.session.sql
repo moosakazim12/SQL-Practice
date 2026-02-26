@@ -285,3 +285,37 @@ SELECT * FROM employees
 
 -- 26️⃣ Create Index
 CREATE INDEX idx_salary ON employees(salary);
+
+-- 27️⃣ Check Execution Plan
+EXPLAIN ANALYZE
+SELECT * FROM employees WHERE salary > 70000;
+
+
+-- 28️⃣ Partitioning Example
+CREATE TABLE orders_2025 PARTITION OF orders
+FOR VALUES FROM ('2025-01-01') TO ('2025-12-31');
+
+-- 29️⃣ CTE Example
+
+WITH department_avg AS ( 
+    SELECT department_id,AVG(salary) AS avg_salary
+    FROM employees
+    GROUP BY department_id
+)
+
+SELECT e.name, e.salary, d.avg_salary
+FROM employees e
+JOIN dept_avg d 
+ON e.department_id = d.department_id
+WHERE e.salary > d.avg_salary;
+
+
+
+-- 30️⃣ Correlated Subquery
+SELECT name 
+FROM employees AS e1
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees AS e2
+    WHERE e1.department_id = e2.department_id
+);
