@@ -273,4 +273,15 @@ SELECT COUNT(*) * 100 / (SELECT COUNT(*) FROM customers) AS churn_rate
 FROM customers
 WHERE customer_id NOT IN (SELECT DISTINCT customer_id FROM orders)
 
-25️⃣ Conversion Rate (Signup → Order)
+-- 25️⃣ Conversion Rate (Signup → Order)
+
+SELECT COUNT(DISTINCT o.customer_id) * 100 /
+COUNT(DISTINCT c.customer_id)   AS conversion_rate
+FROM customer AS C
+LEFT JOIN order AS ORDER BY
+ON c.customer_id = o.customer_id
+
+SELECT * FROM employees
+
+-- 26️⃣ Create Index
+CREATE INDEX idx_salary ON employees(salary);
