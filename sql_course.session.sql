@@ -246,12 +246,15 @@ GROUP BY customer_id
 
 -- 21️⃣ Monthly Active Users (MAU)
 
-
+SELECT DATE_TRUNC('month', login_date) AS month,
+COUNT(DISTINCT user_id)
+FROM logins
+GROUP BY month;
 
 
 -- 22️⃣ Daily Active Users (DAU)
 SELECT DATE_TRUNC('day',login_date) AS day,
-COUNT(DISSTINCT user_id)
+COUNT(DISTINCT user_id)
 FROM logins
 GROUP BY day;
 
@@ -261,8 +264,13 @@ GROUP BY day;
 SELECT COUNT(DISTINCT l.user_id) * 100 /
 COUNT(DISTINCT c.customer_id) AS retention_rate
 FROM customers c
-LEFT JOIN logins AS 
+LEFT JOIN logins AS l
 ON c.customer_id = l.user_id
-ANDl.login_date >= c.signup_date + INTERVAL "30 days";
+AND l.login_date >= c.signup_date + INTERVAL "30 days";
 
 -- 24️⃣ Churn Rate
+SELECT COUNT(*) * 100 / (SELECT COUNT(*) FROM customers) AS churn_rate
+FROM customers
+WHERE customer_id NOT IN (SELECT DISTINCT customer_id FROM orders)
+
+25️⃣ Conversion Rate (Signup → Order)
