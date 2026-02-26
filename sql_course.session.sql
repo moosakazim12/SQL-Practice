@@ -246,14 +246,14 @@ GROUP BY customer_id
 
 -- 21️⃣ Monthly Active Users (MAU)
 
-SELECT DATE_TRUNC('month', login_date) AS month,
-COUNT(DISTINCT user_id)
-FROM logins
-GROUP BY month;
+
 
 
 -- 22️⃣ Daily Active Users (DAU)
-
+SELECT DATE_TRUNC('day',login_date) AS day,
+COUNT(DISSTINCT user_id)
+FROM logins
+GROUP BY day;
 
 
 -- 23️⃣ Retention Rate (30 Day)
