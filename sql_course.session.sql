@@ -309,10 +309,14 @@ WITH department_avg AS (
     GROUP BY department_id
 )
 
-SELECT e.name, e.salary, d.avg_salary
-FROM employees e
-JOIN dept_avg d 
-ON e.department_id = d.department_id
-WHERE e.salary > d.avg_salary;
 
 
+
+-- 30️⃣ Correlated Subquery
+SELECT name 
+FROM employees AS e1
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees AS e2
+    WHERE e1.department_id = e2.department_id
+);
