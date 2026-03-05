@@ -252,12 +252,6 @@ FROM logins
 GROUP BY month;
 
 
--- 22️⃣ Daily Active Users (DAU)
-SELECT DATE_TRUNC('day',login_date) AS day,
-COUNT(DISTINCT user_id)
-FROM logins
-GROUP BY day;
-
 
 -- 23️⃣ Retention Rate (30 Day)
 
@@ -309,7 +303,11 @@ WITH department_avg AS (
     GROUP BY department_id
 )
 
-
+SELECT e.name, e.salary, d.avg_salary
+FROM employees e
+JOIN dept_avg d 
+ON e.department_id = d.department_id
+WHERE e.salary > d.avg_salary;
 
 
 -- 30️⃣ Correlated Subquery
