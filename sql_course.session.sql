@@ -207,12 +207,6 @@ ORDER BY order_date;
 
 -- 15️⃣ 7-Day Moving Average
 
-SELECT order_date,
-AVG(amount) OVER (
-    ORDER BY order_date
-    ROWS BETWEEN 6 PRECEDING  AND CURRENT ROW) AS moving_avg
-    FROM orders
-
 
     -- 16️⃣ Rank Employees by Salary
 
@@ -309,6 +303,11 @@ WITH department_avg AS (
     GROUP BY department_id
 )
 
+SELECT e.name, e.salary, d.avg_salary
+FROM employees e
+JOIN dept_avg d 
+ON e.department_id = d.department_id
+WHERE e.salary > d.avg_salary;
 
 
 -- 30️⃣ Correlated Subquery
