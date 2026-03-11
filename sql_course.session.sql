@@ -173,7 +173,9 @@ WHERE manager_id IS NULL;
 
 -- 🔟 UNION vs UNION ALL
 
-
+SELECT name FROM employees
+UNION
+SELECT name FROM Customers;
 
 -- 11️⃣ Count Orders Per Customer
 
@@ -182,10 +184,6 @@ FROM Orders
 GROUP BY customer_id;
 
 -- 12️⃣ Customers With More Than 2 Orders
-SELECT customer_id
-FROM Orders
-GROUP BY customers_id
-HAVING COUNT(*) > 2;
 
 
 -- 13️⃣ Monthly Revenue
