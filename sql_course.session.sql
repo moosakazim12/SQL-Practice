@@ -117,7 +117,13 @@ WHERE rnk = 2;
 
     -- 5. Find 3rd highest salary per department
 
-
+SELECT *
+    FROM (
+SELECT salary, department_id,
+DENSE_RANK() OVER(PARTITION BY department_id ORDER BY salary DESC) AS rnk
+FROM employees
+    ) AS t
+WHERE rnk = 3;
 
 
 -- 6. Find employees earning more than their manager
@@ -132,13 +138,7 @@ WHERE e.salary > m.salary;
 
 -- 5️⃣ Find Nth Highest Salary
 
-SELECT salary
-FROM (
-SELECT salary,
-DENSE_RANK() OVER (ORDER BY salary DESC) AS rank
-FROM employees
-) AS t
-WHERE rank = 3;
+
 
 
 
