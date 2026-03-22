@@ -138,7 +138,13 @@ WHERE e.salary > m.salary;
 
 -- 5️⃣ Find Nth Highest Salary
 
-
+SELECT salary
+FROM (
+SELECT salary,
+DENSE_RANK() OVER (ORDER BY salary DESC) AS rank
+FROM employees
+) AS t
+WHERE rank = 3;
 
 
 
@@ -173,9 +179,7 @@ SELECT name FROM Customers;
 
 -- 11️⃣ Count Orders Per Customer
 
-SELECT COUNT(*) AS order_count, customer_id
-FROM Orders
-GROUP BY customer_id;
+
 
 -- 12️⃣ Customers With More Than 2 Orders
 SELECT customer_id
