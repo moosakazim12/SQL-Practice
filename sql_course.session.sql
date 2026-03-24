@@ -179,7 +179,9 @@ SELECT name FROM Customers;
 
 -- 11️⃣ Count Orders Per Customer
 
-
+SELECT COUNT(*) AS order_count, customer_id
+FROM Orders
+GROUP BY customer_id;
 
 -- 12️⃣ Customers With More Than 2 Orders
 SELECT customer_id
@@ -322,3 +324,16 @@ WHERE salary > (
     FROM employees AS e2
     WHERE e1.department_id = e2.department_id
 );
+
+
+
+
+
+
+SELECT DISTINCT(CITY) 
+FROM STATION
+WHERE LOWER(CITY) LIKE 'a%'
+   OR LOWER(CITY) LIKE 'e%'
+   OR LOWER(CITY) LIKE 'i%'
+   OR LOWER(CITY) LIKE 'o%'
+   OR LOWER(CITY) LIKE 'u%';
