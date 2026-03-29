@@ -327,7 +327,6 @@ WHERE salary > (
 
 
 
-
 (SELECT CITY,LENGTH(CITY)
 FROM STATION
 ORDER BY LENGTH(CITY) ASC,CITY ASC
@@ -346,3 +345,59 @@ WHERE LOWER(CITY) LIKE 'a%'
    OR LOWER(CITY) LIKE 'i%'
    OR LOWER(CITY) LIKE 'o%'
    OR LOWER(CITY) LIKE 'u%';
+
+
+   SELECT 
+    CEIL(AVG(Salary) - AVG(CAST(REPLACE(Salary, '0', '') AS UNSIGNED))) AS Error
+FROM EMPLOYEES;
+
+SELECT 
+    CEIL(AVG(Salary) - AVG(CAST(REPLACE(Salary, '0', '') AS UNSIGNED))) AS Error
+FROM EMPLOYEES;
+
+SELECT 
+    MAX(salary * months) AS max_earnings,
+    COUNT(*) AS employee_count
+FROM Employee
+WHERE salary * months = (
+    SELECT MAX(salary * months) FROM Employee
+);
+
+SELECT ROUND(LONG_W, 4)
+FROM STATION
+WHERE LAT_N = (
+    SELECT MAX(LAT_N)
+    FROM STATION
+    WHERE LAT_N < 137.2345
+);
+
+SELECT SUM(c1.POPULATION)
+FROM CITY AS c1
+INNER JOIN COUNTRY AS c2
+ON c1.CountryCode = c2.Code 
+WHERE c2.CONTINENT = 'Asia'
+
+
+
+SELECT 
+    c.company_code,
+    c.founder,
+    
+    (SELECT COUNT(DISTINCT lm.lead_manager_code)
+     FROM Lead_Manager lm
+     WHERE lm.company_code = c.company_code) AS lead_managers,
+     
+    (SELECT COUNT(DISTINCT sm.senior_manager_code)
+     FROM Senior_Manager sm
+     WHERE sm.company_code = c.company_code) AS senior_managers,
+     
+    (SELECT COUNT(DISTINCT m.manager_code)
+     FROM Manager m
+     WHERE m.company_code = c.company_code) AS managers,
+     
+    (SELECT COUNT(DISTINCT e.employee_code)
+     FROM Employee e
+     WHERE e.company_code = c.company_code) AS employees
+
+FROM Company c
+ORDER BY c.company_code;
