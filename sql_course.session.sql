@@ -377,7 +377,7 @@ INNER JOIN COUNTRY AS c2
 ON c1.CountryCode = c2.Code 
 WHERE c2.CONTINENT = 'Asia'
 
-
+-- advance select nice example
 
 SELECT 
     c.company_code,
